@@ -6,7 +6,7 @@ import (
 	"go_webserver/dbops/mysql"
 	"go_webserver/dbops/redis"
 	"go_webserver/logger"
-	"go_webserver/route"
+	"go_webserver/routes"
 	"go_webserver/setting"
 	"net/http"
 	"os"
@@ -45,7 +45,7 @@ func main() {
 	//初始化ID生成器
 
 	//注册路由
-	r := route.Setup()
+	r := routes.Setup()
 
 	//设置启动服务
 	srv := &http.Server{
