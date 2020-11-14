@@ -6,7 +6,7 @@ import (
 	"go_webserver/dbops/mysql"
 	"go_webserver/dbops/redis"
 	"go_webserver/logger"
-	"go_webserver/route"
+	"go_webserver/routes"
 	"go_webserver/setting"
 	"net/http"
 	"os"
@@ -14,7 +14,6 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/spf13/viper"
 	"go.uber.org/zap"
 )
 
@@ -25,19 +24,19 @@ func main() {
 	}
 
 	//初始化日志
-	if err := logger.Init(); err != nil {
+	if err := logger.Init(setting.Conf.LogConfig); err != nil {
 		fmt.Printf("init logger failde, err:%v\n", err)
 	}
 	defer zap.L().Sync()
 
 	//初始化mysql连接
-	if err := mysql.Init(); err != nil {
+	if err := mysql.Init(setting.Conf.MySQLConfig); err != nil {
 		fmt.Printf("init mysql failde, err:%v\n", err)
 	}
 	defer mysql.Close()
 
 	//初始化redis连接
-	if err := redis.Init(); err != nil {
+	if err := redis.Init(setting.Conf.RedisConfig); err != nil {
 		fmt.Printf("init redix failde, err:%v\n", err)
 	}
 	defer redis.Close()
@@ -45,11 +44,11 @@ func main() {
 	//初始化ID生成器
 
 	//注册路由
-	r := route.Setup()
+	r := routes.Setup()
 
 	//设置启动服务
 	srv := &http.Server{
-		Addr:    fmt.Sprintf(":%d", viper.GetInt("app.port")),
+		Addr:    fmt.Sprintf(":%d", setting.Conf.Port),
 		Handler: r,
 	}
 
