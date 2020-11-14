@@ -16,11 +16,15 @@
 		"port": 3306,
 		"user": "wancheng",
 		"password": "wancheng",
-		"dbname": "go_webserver"
+		"dbname": "go_webserver",
+		"max_open_conns": 200,
+		"max_idle_conns": 50
 	},
 	"redixs": {
 		"host": "127.0.0.1",
-		"prot": 3309,
-		"db": 0
+		"port": 3309,
+		"password": "",
+		"db": 0,
+		"pool_size": 100
 	}
 }
