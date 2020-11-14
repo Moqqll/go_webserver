@@ -2,6 +2,7 @@
 	"app": {
 		"name": "go_webserver",
 		"mode": "dev",
+		"version": "0.0.1",
 		"port": 8081
 	},
 	"log": {
@@ -20,7 +21,7 @@
 		"max_open_conns": 200,
 		"max_idle_conns": 50
 	},
-	"redixs": {
+	"redis": {
 		"host": "127.0.0.1",
 		"port": 3309,
 		"password": "",

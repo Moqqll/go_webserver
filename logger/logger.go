@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"go_webserver/setting"
 	"net"
 	"net/http"
 	"net/http/httputil"
@@ -11,7 +12,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/natefinch/lumberjack"
-	"github.com/spf13/viper"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -20,25 +20,25 @@ import (
 var lg *zap.Logger
 
 //Init ...
-//使用zap日志库
-func Init() (err error) {
+//利用viper管理配置
+func Init(cfg *setting.LogConfig) (err error) {
 	writeSyncer := getLogWriter(
-		viper.GetString("log.filename"),
-		viper.GetInt("log.max_size"),
-		viper.GetInt("log.max_backups"),
-		viper.GetInt("log.max_age"),
+		cfg.Filename,
+		cfg.MaxSize,
+		cfg.MaxBackups,
+		cfg.MaxAge,
 	)
 	encoder := getEncoder()
 	var l = new(zapcore.Level)
-	err = l.UnmarshalText([]byte(viper.GetString("log.level")))
+	err = l.UnmarshalText([]byte(cfg.Level))
 	if err != nil {
-		return
+		return err
 	}
 	core := zapcore.NewCore(encoder, writeSyncer, l)
 
 	lg = zap.New(core, zap.AddCaller())
-	//用lg替换zap库中全局的logger
-	zap.ReplaceGlobals(lg)
+	zap.ReplaceGlobals(lg) //用lg替换zap库中全局的logger
+
 	return
 }
 
@@ -51,11 +51,11 @@ func getEncoder() zapcore.Encoder {
 	return zapcore.NewJSONEncoder(encoderConfig)
 }
 
-func getLogWriter(filename string, maxSize, maxBackup, maxAge int) zapcore.WriteSyncer {
+func getLogWriter(filename string, maxSize, maxBackups, maxAge int) zapcore.WriteSyncer {
 	lumberJackLogger := &lumberjack.Logger{
 		Filename:   filename,
 		MaxSize:    maxSize,
-		MaxBackups: maxBackup,
+		MaxBackups: maxBackups,
 		MaxAge:     maxAge,
 	}
 	return zapcore.AddSync(lumberJackLogger)
