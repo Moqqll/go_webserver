@@ -3,16 +3,17 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/Moqqll/go_webserver/dbops/mysql"
-	"github.com/Moqqll/go_webserver/dbops/redis"
-	"github.com/Moqqll/go_webserver/logger"
-	"github.com/Moqqll/go_webserver/routes"
-	"github.com/Moqqll/go_webserver/setting"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/Moqqll/go_webserver/dbops/mysql"
+	"github.com/Moqqll/go_webserver/dbops/redis"
+	"github.com/Moqqll/go_webserver/logger"
+	"github.com/Moqqll/go_webserver/routes"
+	"github.com/Moqqll/go_webserver/setting"
 
 	"go.uber.org/zap"
 )
