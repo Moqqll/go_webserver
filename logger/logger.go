@@ -1,7 +1,7 @@
 package logger
 
 import (
-	"go_webserver/setting"
+	"github.com/Moqqll/go_webserver/setting"
 	"net"
 	"net/http"
 	"net/http/httputil"

@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"go_webserver/logger"
+	"github.com/Moqqll/go_webserver/logger"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

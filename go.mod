@@ -1,4 +1,4 @@
-module go_webserver
+module github.com/Moqqll/go_webserver
 
 go 1.14
 

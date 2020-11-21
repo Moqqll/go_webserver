@@ -2,7 +2,7 @@ package mysql
 
 import (
 	"fmt"
-	"go_webserver/setting"
+	"github.com/Moqqll/go_webserver/setting"
 
 	_ "github.com/go-sql-driver/mysql" //	mysql数据库驱动
 	"github.com/jmoiron/sqlx"

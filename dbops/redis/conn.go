@@ -2,7 +2,7 @@ package redis
 
 import (
 	"fmt"
-	"go_webserver/setting"
+	"github.com/Moqqll/go_webserver/setting"
 
 	"github.com/go-redis/redis"
 )
